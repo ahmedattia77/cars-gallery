@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="custom_car_tv_hight">100dp</dimen>
+    <dimen name="padding_tx">6dp</dimen>
+</resources>

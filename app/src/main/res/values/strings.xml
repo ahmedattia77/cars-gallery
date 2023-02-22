@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cars Gallery</string>
+    <string name="hintModel">Model</string>
+    <string name="hintColor">Color</string>
+    <string name="hintDistancePerLiter">Distance per liter</string>
+    <string name="hintDescription">Description</string>
 </resources>
