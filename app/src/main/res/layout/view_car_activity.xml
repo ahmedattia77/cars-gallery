@@ -49,74 +49,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical"
-           >
 
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="12dp"
-               android:padding="6dp"
-               >
-
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:hint="Model"
-                   />
-
-           </com.google.android.material.textfield.TextInputLayout>
-
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="12dp"
-               android:padding="6dp"
-               >
-
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:hint="Color"
-                   />
-
-           </com.google.android.material.textfield.TextInputLayout>
-
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="12dp"
-               android:padding="6dp"
-               >
-
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:hint="density per second"
-                   />
-
-           </com.google.android.material.textfield.TextInputLayout>
-
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="12dp"
-               android:padding="6dp"
-               >
-
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:hint="Description"
-                   />
-
-           </com.google.android.material.textfield.TextInputLayout>
-
-
-       </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
