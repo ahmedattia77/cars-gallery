@@ -26,8 +26,9 @@ public class DataBaseAccess {
         return instance;
     }
 
-    public void openDataBase(){
+    public Boolean openDataBase(){
         sqLiteDatabase = sqLiteOpenHelper.getWritableDatabase();
+        return true;
     }
 
     public void closeDataBase(){

@@ -1,5 +1,6 @@
 package com.example.carsgallery;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.net.URI;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>{
@@ -21,7 +23,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View ContentView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_car_activity , null);
+        View ContentView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_car_activity , null ,false);
         MyViewHolder myViewHolder = new MyViewHolder(ContentView);
         return myViewHolder;
     }
@@ -31,16 +33,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Car cars = this.cars.get(position);
 
-
-//        if (message.getSentBy().equals(message.SENT_BY_BOT)){
-//            holder.leftLayout.setVisibility(View.GONE);
-//            holder.rightLayout.setVisibility(View.VISIBLE);
-//            holder.rightTextContent.setText(message.getContent());
-//        }else{
-//            holder.rightLayout.setVisibility(View.GONE);
-//            holder.leftLayout.setVisibility(View.VISIBLE);
-//            holder.leftTextContent.setText(message.getContent());
-//        }
+        holder.model.setText(cars.getModel());
+        holder.color.setText(cars.getColor());
+        if (cars.getImage() != null && !cars.getImage().isEmpty())
+            holder.imageView.setImageURI(Uri.parse(cars.getImage()));
+        holder.DPL.setText(String.valueOf(cars.getDPL()));
 
     }
 

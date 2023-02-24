@@ -13,8 +13,10 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         >
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar_tb"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            android:background="@color/primaryColor"
              />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -25,6 +27,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recycleView_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -32,11 +35,13 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_floatingActionButton_fb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="40dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/icon_car_w"
         />
 
 

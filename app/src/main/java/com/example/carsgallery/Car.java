@@ -16,9 +16,10 @@ public class Car {
         this.image = image;
         this.DPL = DPL;
     }
-    public Car( String model, String color, double DPL) {
+    public Car(String model, String color, String description, String image, double DPL) {
         this.model = model;
         this.color = color;
+        this.description = description;
         this.image = image;
         this.DPL = DPL;
     }
