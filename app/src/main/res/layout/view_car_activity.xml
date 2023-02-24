@@ -23,6 +23,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             >
             <ImageView
+                android:id="@+id/viewCar_imageCar_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/defualt_car"
@@ -31,7 +32,7 @@
                 android:fitsSystemWindows="true"
                 />
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/viewCar_toolbar_tb"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
@@ -62,6 +63,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/viewCar_model_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -74,6 +76,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/viewCar_color_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="6dp"
@@ -88,6 +91,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/viewCar_distancePerLiter_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -100,6 +104,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/viewCar_decription_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
