@@ -1,5 +1,6 @@
 package com.example.carsgallery;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -7,10 +8,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.QuickContactBadge;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +26,9 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int ADD_CAR_REQUEST_CODE = 1 ;
+    private static final int DELETE_CAR_REQUEST_CODE = 11 ;
+    public static final String CAR_KEY = "car_key" ;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private FloatingActionButton floatingButton;
@@ -49,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         //layoutManager.smoothScrollToPosition(recyclerView , getDefaultViewModelCreationExtras(),2000  );
 
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext() , ViewCar.class);
+                startActivityForResult(intent , ADD_CAR_REQUEST_CODE);
+            }
+        });
 
     }
 
