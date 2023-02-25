@@ -1,15 +1,20 @@
 package com.example.carsgallery;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,6 +23,8 @@ import java.util.zip.Inflater;
 
 public class ViewCar extends AppCompatActivity {
 
+    private static final int PICK_IMAGE_CODE = 112;
+    private Uri imagePath;
     private TextInputEditText model , color , description , DPL;
     private Toolbar toolbar;
     private ImageView imageCar;
@@ -59,10 +66,15 @@ public class ViewCar extends AppCompatActivity {
                 if (car!=null){
                     fillFields(car);
                 }
-
-
             }
 
+            imageCar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent , PICK_IMAGE_CODE);
+                }
+            });
     }
 
     private void fillFields(Car car) {
@@ -95,6 +107,36 @@ public class ViewCar extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        dataBaseAccess = DataBaseAccess.getInstance(this);
+        dataBaseAccess.openDataBase();
+
+        switch (item.getItemId()){
+
+            case R.id.view_car_menu_save :
+            {
+                    Car car = new Car (model.getText().toString(), color.getText().toString() , description.getText().toString() ,String.valueOf(imagePath),Double.valueOf(DPL.getText().toString()));  // model , color , des , image ,DPL
+                    dataBaseAccess.insertCar(car);
+                    finish();
+            }
+                // code
+            case R.id.view_car_menu_edit :
+            {
+                Car car = new Car (model.getText().toString(), color.getText().toString() , description.getText().toString() ,String.valueOf(imagePath),Double.valueOf(DPL.getText().toString()));  // model , color , des , image ,DPL
+                dataBaseAccess.insertCar(car);
+            }
+            case R.id.view_car_menu_delete :
+            {
+               // dataBaseAccess.delete(carId);
+            }
+
+        }
+        dataBaseAccess.closeDataBase();
+
+        return false;
+    }
+
     void turnOnFields(){
         model.setEnabled(true);
         color.setEnabled(true);
@@ -118,17 +160,15 @@ public class ViewCar extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK){
+            assert(data != null);
+            imagePath = data.getData();
+            imageCar.setImageURI(data.getData());
 
-            case R.id.view_car_menu_save :
-                // code
-            case R.id.view_car_menu_edit :
-                // code
-            case R.id.view_car_menu_delete :
-                // code
-
+        }else {
+            Toast.makeText(this, "Something went Wrong", Toast.LENGTH_SHORT).show();
         }
-        return false;
     }
 }
