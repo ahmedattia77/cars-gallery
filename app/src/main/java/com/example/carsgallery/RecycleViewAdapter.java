@@ -16,8 +16,10 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>{
     List<Car> cars;
-    public RecycleViewAdapter(List<Car>messages) {
-        this.cars = messages;
+    RecycleAdapterOnClickListener recycleAdapterOnClickListener;
+    public RecycleViewAdapter(List<Car>cars , RecycleAdapterOnClickListener recycleAdapterOnClickListener) {
+        this.cars = cars;
+        this.recycleAdapterOnClickListener = recycleAdapterOnClickListener;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         if (cars.getImage() != null && !cars.getImage().isEmpty())
             holder.imageView.setImageURI(Uri.parse(cars.getImage()));
         holder.DPL.setText(String.valueOf(cars.getDPL()));
+        holder.imageView.setTag(cars.getId());
 
     }
 
@@ -58,6 +61,15 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             model = itemView.findViewById(R.id.customCar_model_tv);
             color = itemView.findViewById(R.id.customCar_color_tv);
             DPL = itemView.findViewById(R.id.customCar_DistancePerLiter_tv);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int currentCar = (int) imageView.getTag();
+                    recycleAdapterOnClickListener.onClick(currentCar);
+                }
+            });
         }
     }
 }

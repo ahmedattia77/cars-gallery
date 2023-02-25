@@ -23,6 +23,7 @@ public class Car {
         this.image = image;
         this.DPL = DPL;
     }
+    public Car (){;}
 
     public int getId() {
         return id;

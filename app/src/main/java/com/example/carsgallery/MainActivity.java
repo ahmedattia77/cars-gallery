@@ -27,7 +27,7 @@ import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
     private static final int ADD_CAR_REQUEST_CODE = 1 ;
-    private static final int DELETE_CAR_REQUEST_CODE = 11 ;
+    private static final int EDIT_CAR_REQUEST_CODE = 11 ;
     public static final String CAR_KEY = "car_key" ;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
@@ -47,14 +47,24 @@ public class MainActivity extends AppCompatActivity {
 
         dataBaseAccess = DataBaseAccess.getInstance(this);
         if (dataBaseAccess.openDataBase())
-                listOfCars = dataBaseAccess.getCars();
-        dataBaseAccess.closeDataBase();
-        recyclerAdapter = new RecycleViewAdapter(listOfCars);
-        recyclerView.setAdapter(recyclerAdapter);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this , 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        //layoutManager.smoothScrollToPosition(recyclerView , getDefaultViewModelCreationExtras(),2000  );
+             listOfCars = dataBaseAccess.getCars();
+
+            dataBaseAccess.closeDataBase();
+
+            recyclerAdapter = new RecycleViewAdapter(listOfCars, new RecycleAdapterOnClickListener() {
+                @Override
+                public void onClick(int carId) {
+                    Intent intent = new Intent(getBaseContext() , ViewCar.class);
+                    intent.putExtra(CAR_KEY , carId);
+                    startActivityForResult(intent,EDIT_CAR_REQUEST_CODE);
+                }
+            });
+
+            recyclerView.setAdapter(recyclerAdapter);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            //layoutManager.smoothScrollToPosition(recyclerView , getDefaultViewModelCreationExtras(),2000  );
 
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override

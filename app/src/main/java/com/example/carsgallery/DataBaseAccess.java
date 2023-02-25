@@ -109,6 +109,30 @@ public class DataBaseAccess {
 
         return cars;
     }
+
+    public Car getCar(int carId) {
+        //ArrayList<Car> cars = new ArrayList<>();
+        Car car = new Car();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+DataBase.TABLE_NAME+" WHERE "+DataBase.CAR_CLN_TABLE_ID+"=?",new String[]{String.valueOf(carId)});
+
+        if (cursor.moveToFirst()){
+
+                int id = cursor.getInt(0);
+                String model = cursor.getString(1);
+                String color = cursor.getString(2);
+                String description = cursor.getString(3);
+                String image = cursor.getString(4);
+                double DPL = cursor.getDouble(5);
+
+                car = new Car(id,model,color,description,image,DPL);
+            cursor.close();
+            return  car;
+        }
+
+        return null;
+    }
+
     public ArrayList<Car>  searchCars(String modelSearch) {
         ArrayList<Car> cars = new ArrayList<>();
         //String [] arg = {model};
