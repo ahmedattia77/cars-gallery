@@ -2,6 +2,7 @@ package com.example.carsgallery;
 
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         dataBaseAccess = DataBaseAccess.getInstance(this);
         if (dataBaseAccess.openDataBase())
              listOfCars = dataBaseAccess.getCars();
-
             dataBaseAccess.closeDataBase();
 
             recyclerAdapter = new RecycleViewAdapter(listOfCars, new RecycleAdapterOnClickListener() {
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             recyclerView.setAdapter(recyclerAdapter);
+
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setHasFixedSize(true);
@@ -110,5 +111,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //if (requestCode == ADD_CAR_REQUEST_CODE && resultCode == ViewCar.ADD_CAR_RESULT_CODE){
+            dataBaseAccess.openDataBase();
+            listOfCars = dataBaseAccess.getCars();
+            dataBaseAccess.closeDataBase();
+            recyclerAdapter.setCars(listOfCars);
+            recyclerAdapter.notifyDataSetChanged();
+//        }else
+//            Toast.makeText(this, "can't update data", Toast.LENGTH_SHORT).show();
     }
 }

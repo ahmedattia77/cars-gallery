@@ -23,7 +23,9 @@ import java.util.zip.Inflater;
 
 public class ViewCar extends AppCompatActivity {
 
-    private static final int PICK_IMAGE_CODE = 112;
+    private static final int PICK_IMAGE_CODE = 1;
+    public static final int ADD_CAR_RESULT_CODE = 11;
+    public static final int EDIT_CAR_RESULT_CODE = 111;
     private Uri imagePath;
     private TextInputEditText model , color , description , DPL;
     private Toolbar toolbar;
@@ -109,22 +111,36 @@ public class ViewCar extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String model , color , imagePath , description;
+        Double DPL;
+
         dataBaseAccess = DataBaseAccess.getInstance(this);
-        dataBaseAccess.openDataBase();
 
         switch (item.getItemId()){
 
             case R.id.view_car_menu_save :
-            {
-                    Car car = new Car (model.getText().toString(), color.getText().toString() , description.getText().toString() ,String.valueOf(imagePath),Double.valueOf(DPL.getText().toString()));  // model , color , des , image ,DPL
-                    dataBaseAccess.insertCar(car);
-                    finish();
-            }
-                // code
+                    model = this.model.getText().toString();
+                    color = this.color.getText().toString();
+                    description = this.description.getText().toString();
+                    DPL = Double.valueOf(this.DPL.getText().toString());
+                    imagePath = this.imagePath.toString();
+
+                    dataBaseAccess.openDataBase();
+                    Car car = new Car(model , color , description , imagePath ,DPL);
+                    Boolean result = dataBaseAccess.insertCar(car);
+                    dataBaseAccess.closeDataBase();
+
+                    if (result){
+                        Toast.makeText(this, "added successfully", Toast.LENGTH_SHORT).show();
+                        setResult(ADD_CAR_RESULT_CODE,null);
+                        finish();
+                    }else
+                        Toast.makeText(this, "something went wrong! ", Toast.LENGTH_SHORT).show();
+
+                    return true;
             case R.id.view_car_menu_edit :
             {
-                Car car = new Car (model.getText().toString(), color.getText().toString() , description.getText().toString() ,String.valueOf(imagePath),Double.valueOf(DPL.getText().toString()));  // model , color , des , image ,DPL
-                dataBaseAccess.insertCar(car);
+
             }
             case R.id.view_car_menu_delete :
             {
@@ -132,8 +148,6 @@ public class ViewCar extends AppCompatActivity {
             }
 
         }
-        dataBaseAccess.closeDataBase();
-
         return false;
     }
 

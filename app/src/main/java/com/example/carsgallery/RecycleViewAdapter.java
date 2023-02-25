@@ -16,6 +16,15 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>{
     List<Car> cars;
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
     RecycleAdapterOnClickListener recycleAdapterOnClickListener;
     public RecycleViewAdapter(List<Car>cars , RecycleAdapterOnClickListener recycleAdapterOnClickListener) {
         this.cars = cars;
