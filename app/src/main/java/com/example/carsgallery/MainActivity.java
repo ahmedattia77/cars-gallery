@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int ADD_CAR_REQUEST_CODE = 1 ;
-    private static final int EDIT_CAR_REQUEST_CODE = 11 ;
+    private static final int ADD_CAR_REQUEST_CODE = 11 ;
+    private static final int EDIT_CAR_REQUEST_CODE = 22 ;
     public static final String CAR_KEY = "car_key" ;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         dataBaseAccess = DataBaseAccess.getInstance(this);
         if (dataBaseAccess.openDataBase())
-             listOfCars = dataBaseAccess.getCars();
+            listOfCars = dataBaseAccess.getCars();
             dataBaseAccess.closeDataBase();
 
             recyclerAdapter = new RecycleViewAdapter(listOfCars, new RecycleAdapterOnClickListener() {
@@ -116,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //if (requestCode == ADD_CAR_REQUEST_CODE && resultCode == ViewCar.ADD_CAR_RESULT_CODE){
+        if (requestCode == ADD_CAR_REQUEST_CODE && resultCode == 13) {
             dataBaseAccess.openDataBase();
             listOfCars = dataBaseAccess.getCars();
             dataBaseAccess.closeDataBase();
             recyclerAdapter.setCars(listOfCars);
             recyclerAdapter.notifyDataSetChanged();
-//        }else
-//            Toast.makeText(this, "can't update data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "added successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 }

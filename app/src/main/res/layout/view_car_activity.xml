@@ -56,6 +56,7 @@
             android:orientation="vertical"
             >
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/viewCar_modelLayout_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hintModel"
@@ -69,6 +70,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/viewCar_colorLayout_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -84,6 +86,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/viewCar_distancePerLiterLayout_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hintDistancePerLiter"
@@ -97,6 +100,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/viewCar_descriptionLayout_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hintDescription"
@@ -104,7 +108,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/viewCar_decription_et"
+                    android:id="@+id/viewCar_description_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
