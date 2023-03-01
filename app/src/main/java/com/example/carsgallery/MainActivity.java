@@ -99,13 +99,18 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this, "submit", Toast.LENGTH_SHORT).show();
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(MainActivity.this, "on change ", Toast.LENGTH_SHORT).show();
+                dataBaseAccess.openDataBase();
+                ArrayList<Car> cars = new ArrayList<>();
+                cars = dataBaseAccess.searchCars(newText);
+                dataBaseAccess.closeDataBase();
+                recyclerAdapter.setCars(cars);
+                recyclerAdapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -113,7 +118,12 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                Toast.makeText(MainActivity.this, "close", Toast.LENGTH_SHORT).show();
+                dataBaseAccess.openDataBase();
+                ArrayList<Car> cars = new ArrayList<>();
+                cars = dataBaseAccess.getAllCars();
+                dataBaseAccess.closeDataBase();
+                recyclerAdapter.setCars(cars);
+                recyclerAdapter.notifyDataSetChanged();
                 return false;
             }
         });
