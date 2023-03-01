@@ -97,12 +97,14 @@ public class ViewCar extends AppCompatActivity {
         MenuItem delete = menu.findItem(R.id.view_car_menu_delete);
 
         if (carId == -1) {
+            // case adding
             edit.setVisible(false);
             delete.setVisible(false);
             save.setVisible(true);
         } else {
+            // case modifying
             edit.setVisible(true);
-            delete.setVisible(true);
+            delete.setVisible(false);
             save.setVisible(false);
         }
 
@@ -111,40 +113,64 @@ public class ViewCar extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        String model, color, imagePath, description;
-        Double DPL;
+        String model_, color_, image_ ="", description_;
+        Double DPL_;
+        Boolean result;
+        Car car = new Car();
 
         dataBaseAccess = DataBaseAccess.getInstance(this);
 
         switch (item.getItemId()) {
 
             case R.id.view_car_menu_save:
-                model = this.model.getText().toString();
-                color = this.color.getText().toString();
-                description = this.description.getText().toString();
-                DPL = Double.parseDouble(this.DPL.getText().toString());
-                imagePath = this.imagePath.toString();
+                model_ = model.getText().toString();
+                color_ = color.getText().toString();
+                description_ = description.getText().toString();
+                DPL_ = Double.parseDouble(this.DPL.getText().toString());
+                if (imagePath != null)
+                    image_ = imagePath.toString();
+
+                car = new Car(carId ,model_ , color_ , description_, image_ , DPL_);
 
                 dataBaseAccess.openDataBase();
-                Car car = new Car(model , color , description, imagePath , DPL);
-                Boolean result = dataBaseAccess.insertCar(car);
-                dataBaseAccess.closeDataBase();
-                
-                if (result == true){
-                setResult(13 , null);
-                finish();
-                }else{
-                    Toast.makeText(this, "insertion failed", Toast.LENGTH_SHORT).show();
+                if (carId == -1){
+                    result = dataBaseAccess.insertCar(car);
+                    if (result) {
+                        setResult(13, null);
+                        finish();
+                    } else
+                        Toast.makeText(this, "insertion failed", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    result = dataBaseAccess.select(car);
+                    if (result) {
+                        setResult(14, null);
+                        finish();
+                    } else
+                        Toast.makeText(this, "edit failed", Toast.LENGTH_SHORT).show();
                 }
+                dataBaseAccess.closeDataBase();
+            return true;
 
+            case R.id.view_car_menu_edit:
+                turnOnFields();
+                MenuItem edit = toolbar.getMenu().findItem(R.id.view_car_menu_edit);
+                MenuItem save = toolbar.getMenu().findItem(R.id.view_car_menu_save);
+                MenuItem delete = toolbar.getMenu().findItem(R.id.view_car_menu_delete);
+
+                save.setVisible(true);
+                delete.setVisible(true);
+                edit.setVisible(false);
                 return true;
-            case R.id.view_car_menu_edit: {
 
-            }
-            case R.id.view_car_menu_delete: {
-
-            }
-
+            case R.id.view_car_menu_delete:
+                dataBaseAccess.openDataBase();
+                car.setId(carId);
+                dataBaseAccess.delete(car);
+                dataBaseAccess.closeDataBase();
+                setResult(14 ,null);
+                finish();
+                return true;
         }
         return false;
     }

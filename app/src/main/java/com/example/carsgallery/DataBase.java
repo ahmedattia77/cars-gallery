@@ -15,15 +15,13 @@ public class  DataBase extends SQLiteAssetHelper {
 
     public static final String NAME_DS = "cars.db";
     public static final int VERSION_DS = 1;
-
     public static final String TABLE_NAME = "car";
     public static final String CAR_CLN_TABLE_ID = "id";
     public static final String CAR_CLN_TABLE_MODEL = "model";
-
     public static final String CAR_CLN_TABLE_DESCRIPTION = "description";
     public static final String CAR_CLN_TABLE_COLOR = "color";
     public static final String CAR_CLN_TABLE_IMAGE = "image";
-    public static final String CAR_CLN_TABLE_DPL = "DistancePerLetter";
+    public static final String CAR_CLN_TABLE_DPL = "DPL";
 
     public DataBase (Context context){
         super(context,NAME_DS,null,VERSION_DS);

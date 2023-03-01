@@ -62,7 +62,7 @@ public class DataBaseAccess {
         values.put(DataBase.CAR_CLN_TABLE_IMAGE , car.getImage());
         values.put(DataBase.CAR_CLN_TABLE_DPL , car.getDPL());
 
-        String args [] ={car.getId()+""};
+        String args [] ={String.valueOf(car.getId())};
         int result = sqLiteDatabase.update(DataBase.TABLE_NAME,values,"id=?",args);
 
         return result > 0;
@@ -79,19 +79,21 @@ public class DataBaseAccess {
         ContentValues values = new ContentValues();
         // sending dataInformation in the arr and send the array as a condition
         // we can't send the condition directly because it can be manipulated
-        String args [] ={car.getId()+""};
-        int result = sqLiteDatabase.delete(DataBase.TABLE_NAME,"id=? AND color",args);
+//        String args [] ={car.getId()+""};
+        String args [] ={String.valueOf(car.getId())};
+//        int result = sqLiteDatabase.delete(DataBase.TABLE_NAME,"id=? AND color",args);
+        int result = sqLiteDatabase.delete(DataBase.TABLE_NAME,"id=?",args);
 
         return result > 0;
     }
 
 
-    public ArrayList<Car> getCars() {
+    public ArrayList<Car> getAllCars() {
         ArrayList<Car> cars = new ArrayList<>();
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+DataBase.TABLE_NAME,null);
 
-        if (cursor.moveToFirst()){
+        if (cursor != null && cursor.moveToFirst()){
             do {
                 int id = cursor.getInt(0);
                 String model = cursor.getString(1);
