@@ -7,5 +7,14 @@
     app:showAsAction="always"
     app:actionViewClass="androidx.appcompat.widget.SearchView"
     />
+    <item
+        android:title="settings"
+        android:icon="@drawable/baseline_settings_24"
+        app:showAsAction="collapseActionView"
+        />
+    <item
+        android:title="About developer"
+        app:showAsAction="collapseActionView"
+        />
 
 </menu>
